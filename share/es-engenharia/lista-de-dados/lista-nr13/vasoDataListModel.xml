@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="vaso:vasoDataListModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+	<description>Tutorial Task Datalist Model</description>
+	<author>Sean Dumont</author>
+	<version>1.0</version>
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/datalist/1.0" prefix="dl" />
+	</imports>
+	<namespaces>
+		<namespace uri="https://www.fikatechnologies.com/model/fikaDataListModel/1.0" prefix="vaso" />
+	</namespaces>
+
+	<types>
+		<type name="vaso:vasotasklist">
+			<title>Lista de taregas vaso</title>
+			<parent>dl:dataListItem</parent>
+			<properties>
+				<property name="vaso:startDate">
+					<title>Data de Início</title>
+					<type>d:date</type>
+				</property>
+				<property name="vaso:dueDate">
+					<title>Data de Vencimento</title>
+					<type>d:date</type>
+				</property>
+				<property name="vaso:taskComments">
+					<title>Comentários</title>
+					<type>d:text</type>
+				</property>
+			</properties>
+			<associations>
+				<association name="vaso:taskAssignee">
+					<title>Responsável</title>
+					<source>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</source>
+					<target>
+						<class>cm:person</class>
+						<many>true</many>
+					</target>
+				</association>
+			</associations>
+			<overrides/>
+			<mandatory-aspects>
+				<aspect>vaso:created</aspect>
+				<aspect>cm:titled</aspect>
+				<aspect>cm:attachable</aspect>
+			</mandatory-aspects>
+		</type>
+	</types>
+	<aspects>
+		<aspect name="vaso:created">
+			<title>Data de Envio</title>
+			<parent>cm:auditable</parent>
+			<overrides>
+					<property name="cm:created">
+					</property>
+					<property name="cm:creator">
+					</property>
+			</overrides>
+		</aspect>
+	</aspects>
+</model>

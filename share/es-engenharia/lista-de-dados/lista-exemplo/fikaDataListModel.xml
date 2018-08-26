@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="fika:fikaDataListModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+	<description>Tutorial Task Datalist Model</description>
+	<author>Sean Dumont</author>
+	<version>1.0</version>
+	<imports>
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/datalist/1.0" prefix="dl" />
+	</imports>
+	<namespaces>
+		<namespace uri="https://www.fikatechnologies.com/model/fikaDataListModel/1.0" prefix="fika" />
+	</namespaces>
+
+	<types>
+		<type name="fika:fikatasklist">
+			<title>Fika Task List</title>
+			<parent>dl:dataListItem</parent>
+			<properties>
+				<property name="fika:startDate">
+					<title>Task Start Date</title>
+					<type>d:date</type>
+				</property>
+				<property name="fika:dueDate">
+					<title>Task Due Date</title>
+					<type>d:date</type>
+				</property>
+				<property name="fika:taskComments">
+					<title>Comments</title>
+					<type>d:text</type>
+				</property>
+			</properties>
+			<associations>
+				<association name="fika:taskAssignee">
+					<title>Assignee</title>
+					<source>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</source>
+					<target>
+						<class>cm:person</class>
+						<many>true</many>
+					</target>
+				</association>
+			</associations>
+			<overrides/>
+			<mandatory-aspects>
+				<aspect>fika:created</aspect>
+				<aspect>cm:titled</aspect>
+				<aspect>cm:attachable</aspect>
+			</mandatory-aspects>
+		</type>
+	</types>
+	<aspects>
+		<aspect name="fika:created">
+			<title>Task Submission Date</title>
+			<parent>cm:auditable</parent>
+			<overrides>
+					<property name="cm:created">
+					</property>
+					<property name="cm:creator">
+					</property>
+			</overrides>
+		</aspect>
+	</aspects>
+</model>

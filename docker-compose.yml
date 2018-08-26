@@ -1,0 +1,86 @@
+version: '2'
+volumes:
+  alfresco-db:
+  alfresco-search-cores-alfresco:
+  alfresco-search-cores-archive:
+  alfresco-search-contentstore:
+  alfresco-data:
+  alfresco-logs:
+
+services:
+  postgresql:
+    environment:
+      POSTGRES_DB: alfresco
+      POSTGRES_PASSWORD: alfresco
+      POSTGRES_USER: alfresco
+    image: postgres:9.4
+    volumes:
+      - alfresco-db:/var/lib/postgresql/data
+  
+  libreoffice:
+    build: libreoffice/
+    image: fjudith/alfresco:libreoffice
+    ports:
+      - "8100:8100"
+  
+  search:
+    build: search/
+    image: fjudith/alfresco:search
+    ports:
+      - "8983:8983"
+    volumes:
+      - alfresco-search-cores-alfresco:/usr/share/alfresco-search-services/solrhome/alfresco
+      - alfresco-search-cores-archive:/usr/share/alfresco-search-services/solrhome/archive
+      - alfresco-search-contentstore:/usr/share/alfresco-search-services/contentstore
+  
+  repository:
+    environment:
+      DB_HOST: postgres
+      DB_KIND: postgresql
+      DB_NAME: alfresco
+      DB_PASSWORD: alfresco
+      DB_USERNAME: alfresco
+      ALFRESCO_HOSTNAME: "104.248.63.123"
+      SHARE_HOSTNAME: "104.248.63.123"
+      SMART_FOLDERS_ENABLED: 'true'
+      FTP_ENABLED: 'true' 
+      FTP_PORT: "21"
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: "465"
+      MAIL_PROTOCOL: smtps
+      MAIL_FROM_DEFAULT_ENABLED: 'true'
+      MAIL_FROM_DEFAULT: enio@esengenharia.com
+      MAIL_SMTP_USERNAME: ecm.esengenharia@gmail.com
+      MAIL_SMTP_PASSWORD: P@ssw0rdes03
+      MAIL_SMTP_AUTH: 'true'
+      MAIL_SMTP_STARTTLS: 'true'
+      MAIL_SMTPS_AUTH: 'true'
+      MAIL_SMTPS_STARTTLS_ENABLE: 'true'
+      MAIL_TESTMESSAGE_SEND: 'true'
+      MAIL_TESTMESSAGE_TO: enio@esengenharia.com
+      NOTIFICATION_EMAIL_SITEINVITE: 'true'
+    build: repository/
+    image: fjudith/alfresco:repository
+    links:
+      - postgresql:postgres
+      - libreoffice:libreoffice
+      - search:solr
+    ports:
+      - "21:21"
+      - "137:137"
+      - "138:138"
+      - "139:139"
+      - "445:445"
+      - "8009:8009"
+    volumes:
+    volumes:
+      - alfresco-data:/var/lib/alfresco/alf_data
+      - alfresco-logs:/usr/share/tomcat/logs
+  
+  share:
+    build: share/
+    image: fjudith/alfresco:share
+    ports:
+      - "8080:8080"
+    links:
+      - repository:repository

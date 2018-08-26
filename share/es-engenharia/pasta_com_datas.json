@@ -1,0 +1,73 @@
+{
+ "name" : "Virtual Folders Test",
+ "nodes" : [
+
+
+    {
+   "id" : "101",
+   "name" : "5 -À vencer em 90 dias",
+   "description" : "I documenti pdf dell'utente contenuti nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[NOW/DAY+30DAYS TO MAX]"
+    }
+    },
+
+
+    {
+   "id" : "102",
+   "name" : "4 -À vencer em 30 dias",
+   "description" : "Le immagini dell'utente contenute nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[NOW/DAY+7DAYS TO NOW/DAY+29DAYS]"
+   }
+   },
+   
+
+   {
+   "id" : "103",
+   "name" : "3 -À vencer em 7 dias",
+   "description" : "Le immagini dell'utente contenute nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[NOW/DAY+3DAYS TO NOW/DAY+6DAYS]"
+   }
+   },
+   
+
+
+   {
+   "id" : "104",
+   "name" : "2 -À vencer em 2 dias",
+   "description" : "Le immagini dell'utente contenute nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[NOW/DAY+1DAY TO NOW/DAY+2DAY]"
+   }
+   },
+
+   {
+   "id" : "105",
+   "name" : "1 -Hoje",
+   "description" : "Le immag545ini dell'utente contenute nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[NOW/DAY TO NOW/DAY]"
+   }
+   },
+
+
+
+
+   {
+   "id" : "106",
+   "name" : "6 -Atrasado",
+   "description" : "Le immagini dell'utente contenute nel sito",
+   "search" : {
+    "language" : "fts-alfresco",
+    "query" : "(PATH:'/app:company_home/st:sites//*') AND   Engenharia:Validade_2:[MIN TO NOW/DAY-1DAY]"
+   }
+
+  }]
+}
